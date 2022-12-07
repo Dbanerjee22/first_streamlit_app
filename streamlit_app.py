@@ -14,7 +14,7 @@ if fruits_selected:
   #filter fruits
   fruits_to_show = my_fruit_list.loc[fruits_selected]
   streamlit.dataframe(fruits_to_show)
- else:
+else:
   streamlit.dataframe(my_fruit_list)
   
 
