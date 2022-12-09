@@ -20,6 +20,10 @@ else:
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
 streamlit.text(fruityvice_response.json())
 streamlit.header("Fruityvice Fruit Advice!")
+# converting json data into flat table 
+fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+# converting flat table into row-column table
+streamlit.dataframe(fruityvice_normalized)
   
 
 
