@@ -38,7 +38,7 @@ try:
   else:
     fruityvice_response = get_fruityvice_data(get_fruit_details)
     # converting json data into flat table
-    fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+    #fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
     # converting flat table into row-column table
     streamlit.dataframe(fruityvice_normalized)
 except URLError as e:
