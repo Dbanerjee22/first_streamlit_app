@@ -25,7 +25,7 @@ else:
   
 streamlit.header("Fruityvice Fruit Advice!")
 
-def get_frutyvice_data(fruit_choice):
+def get_fruityvice_data(fruit_choice):
   fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{get_fruit_details}")
   # converting json data into flat table
   fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
