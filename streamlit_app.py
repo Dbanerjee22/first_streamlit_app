@@ -11,6 +11,7 @@ streamlit.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇')
 my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 #setting index
 my_fruit_list = my_fruit_list.set_index('Fruit')
+
 fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
 streamlit.write('The user entered ', fruit_choice)
 # Let's put a pick list here so they can pick the fruit they want to include 
@@ -24,13 +25,18 @@ else:
   
 streamlit.header("Fruityvice Fruit Advice!")
 #get fruit details
-get_fruit_details = streamlit.text_input('What fruit would you like information?','Kiwi')
-fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{get_fruit_details}")
-
-# converting json data into flat table 
-fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-# converting flat table into row-column table
-streamlit.dataframe(fruityvice_normalized)
+try:
+  get_fruit_details = streamlit.text_input('What fruit would you like information?','Kiwi')
+  if not get_fruit_details:
+    streamlit.error('Please select a fruit to get information.')
+  else:
+    fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{get_fruit_details}")
+    # converting json data into flat table
+    fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+    # converting flat table into row-column table
+    streamlit.dataframe(fruityvice_normalized)
+except URLError as e:
+  streamlit.error()
 streamlit.stop()
 #taking user input
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
