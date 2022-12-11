@@ -20,8 +20,12 @@ if fruits_selected:
   streamlit.dataframe(fruits_to_show)
 else:
   streamlit.dataframe(my_fruit_list)
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+  
 streamlit.header("Fruityvice Fruit Advice!")
+#get fruit details
+get_fruit_details = streamlit.text_input('What fruit would you like information','Kiwi')
+fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{get_fruit_details}")
+
 # converting json data into flat table 
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # converting flat table into row-column table
@@ -30,8 +34,10 @@ streamlit.dataframe(fruityvice_normalized)
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
 my_cur.execute("select * from fruit_load_list")
-my_data_row = my_cur.fetchone()
-streamlit.text("Thr Fruit load list contains:")
+#my_data_row = my_cur.fetchone()
+streamlit.text("The Fruit load list contains:")
+my_cur.execute("select * from fruit_load_list")
+my_data_row = my_cur.fetchall()
 streamlit.dataframe(my_data_row)
 #adding fruit
 add_my_fruit = streamlit.text_input('What fruit would you like to add?','Kiwi')
