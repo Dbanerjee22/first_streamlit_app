@@ -40,7 +40,7 @@ try:
     # converting json data into flat table
     #fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
     # converting flat table into row-column table
-    streamlit.dataframe(fruityvice_normalized)
+    streamlit.dataframe(fruityvice_response)
 except URLError as e:
   streamlit.error()
 streamlit.stop()
