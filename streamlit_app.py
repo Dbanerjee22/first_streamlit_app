@@ -29,6 +29,7 @@ def get_frutyvice_data(fruit_choice):
   fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{get_fruit_details}")
   # converting json data into flat table
   fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+  return fruityvice_normalized
 #get fruit details
 try:
   get_fruit_details = streamlit.text_input('What fruit would you like information?','Kiwi')
