@@ -23,7 +23,7 @@ else:
   
 streamlit.header("Fruityvice Fruit Advice!")
 #get fruit details
-get_fruit_details = streamlit.text_input('What fruit would you like information','Kiwi')
+get_fruit_details = streamlit.text_input('What fruit would you like information?','Kiwi')
 fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{get_fruit_details}")
 
 # converting json data into flat table 
@@ -41,8 +41,9 @@ my_data_row = my_cur.fetchall()
 streamlit.dataframe(my_data_row)
 #adding fruit
 add_my_fruit = streamlit.text_input('What fruit would you like to add?','Kiwi')
+
+my_cur.execute(f"insert into FRUIT_LOAD_LIST values({add_my_fruit})")
 streamlit.write("Thanks for adding:",add_my_fruit)
-#my_cur.execute("insert into FRUIT_LOAD_LIST values('from streamlit')")
 
 
   
